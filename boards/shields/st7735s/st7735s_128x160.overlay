@@ -16,7 +16,7 @@
 
 	st7735s_st7735s_128x160: st7735s@0 {
 		compatible = "sitronix,st7735s";
-		spi-max-frequency = <100000>;
+		spi-max-frequency = <20000000>;
 		reg = <0>;
 		lcd-logic-power-gpios = <&arduino_header 13 GPIO_ACTIVE_HIGH>;	/* D7 */
 		lcd-backlight-power-gpios = <&arduino_header 10 GPIO_ACTIVE_HIGH>;	/* D4 */
@@ -26,7 +26,7 @@
 		height = <160>;
 		x-offset = <0>;
 		y-offset = <0>;
-		madctl = <0x60>;
+		madctl = <0xc0>;
 		colmod = <0x55>;
 		caset = [00 00 00 4F];
 		raset = [00 00 00 9F];

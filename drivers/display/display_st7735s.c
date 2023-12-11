@@ -31,7 +31,7 @@ LOG_MODULE_REGISTER(display_st7735s, CONFIG_DISPLAY_LOG_LEVEL);
 struct st7735s_config {
 	struct spi_dt_spec bus;
 	struct gpio_dt_spec lcd_logic_power;
-	struct gpio_dt_spec lcd_backligth_power;
+	struct gpio_dt_spec lcd_backlight_power;
 	struct gpio_dt_spec cmd_data;
 	struct gpio_dt_spec reset;
 	uint16_t height;
@@ -453,7 +453,7 @@ static int st7735s_init(const struct device *dev)
 		}
 		k_sleep(ST7735S_EXIT_SLEEP_TIME);
 	}
-	if (!spi_is_ready(&config->bus)) {
+	if (!spi_is_ready_dt(&config->bus)) {
 		LOG_ERR("SPI bus %s not ready", config->bus.bus->name);
 		return -ENODEV;
 	}
@@ -533,7 +533,7 @@ static const struct display_driver_api st7735s_api = {
 };
 
 
-#define ST7735R_INIT(inst)							\
+#define ST7735S_INIT(inst)							\
 	const static struct st7735s_config st7735s_config_ ## inst = {		\
 		.bus = SPI_DT_SPEC_INST_GET(					\
 			inst, SPI_OP_MODE_MASTER |SPI_HALF_DUPLEX| SPI_WORD_SET(8), 0),		\
@@ -574,4 +574,4 @@ static const struct display_driver_api st7735s_api = {
 			      POST_KERNEL, CONFIG_DISPLAY_INIT_PRIORITY,	\
 			      &st7735s_api);
 
-DT_INST_FOREACH_STATUS_OKAY(ST773S_INIT);
+DT_INST_FOREACH_STATUS_OKAY(ST7735S_INIT);
